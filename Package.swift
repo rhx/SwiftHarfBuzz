@@ -4,23 +4,34 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftHarfBuzz",
+    name: "HarfBuzz",
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "SwiftHarfBuzz",
-            targets: ["SwiftHarfBuzz"]),
+            name: "HarfBuzz",
+            targets: ["HarfBuzz"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/rhx/gir2swift.git",    branch: "development"),
+        .package(url: "https://github.com/rhx/SwiftGObject.git", branch: "development")
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
+        .systemLibrary(
+            name: "CHarfBuzz",
+            pkgConfig: "harfbuzz-gobject",
+            providers: [
+                .brew(["harfbuzz", "glib", "glib-networking", "gobject-introspection"]),
+                .apt(["libharfbuzz-dev", "libglib2.0-dev", "glib-networking", "gobject-introspection", "libgirepository1.0-dev"])
+            ]),
         .target(
-            name: "SwiftHarfBuzz",
-            dependencies: []),
+            name: "HarfBuzz",
+            dependencies: [
+                "CHarfBuzz",
+                .product(name: "GLibObject", package: "SwiftGObject")
+            ],
+            swiftSettings: [.unsafeFlags(["-Xswiftc", "-suppress-warnings"], .when(configuration: .release))],
+            plugins: [
+                .plugin(name: "gir2swift-plugin", package: "gir2swift")
+            ]),
         .testTarget(
             name: "SwiftHarfBuzzTests",
             dependencies: ["SwiftHarfBuzz"]),
