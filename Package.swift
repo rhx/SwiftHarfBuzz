@@ -33,7 +33,7 @@ let package = Package(
                 .plugin(name: "gir2swift-plugin", package: "gir2swift")
             ]),
         .testTarget(
-            name: "SwiftHarfBuzzTests",
-            dependencies: ["SwiftHarfBuzz"]),
+            name: "HarfBuzzTests",
+            dependencies: ["HarfBuzz"]),
     ]
 )
