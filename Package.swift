@@ -26,7 +26,8 @@ let package = Package(
             name: "HarfBuzz",
             dependencies: [
                 "CHarfBuzz",
-                .product(name: "GLibObject", package: "SwiftGObject")
+                .product(name: "GLibObject", package: "SwiftGObject"),
+                .product(name: "gir2swift", package: "gir2swift"),
             ],
             swiftSettings: [.unsafeFlags(["-Xfrontend", "-serialize-debugging-options"], .when(configuration: .debug))],
             plugins: [
