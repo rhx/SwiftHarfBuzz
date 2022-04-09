@@ -28,7 +28,6 @@ let package = Package(
                 "CHarfBuzz",
                 .product(name: "GLibObject", package: "SwiftGObject")
             ],
-            swiftSettings: [.unsafeFlags(["-Xswiftc", "-suppress-warnings"], .when(configuration: .release))],
             plugins: [
                 .plugin(name: "gir2swift-plugin", package: "gir2swift")
             ]),
