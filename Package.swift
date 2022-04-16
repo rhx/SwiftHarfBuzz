@@ -26,8 +26,8 @@ let package = Package(
             name: "HarfBuzz",
             dependencies: [
                 "CHarfBuzz",
-                .product(name: "GLibObject", package: "SwiftGObject"),
                 .product(name: "gir2swift", package: "gir2swift"),
+                .product(name: "GLibObject", package: "SwiftGObject"),
             ],
             swiftSettings: [
                 .unsafeFlags(["-suppress-warnings"], .when(configuration: .release)),
