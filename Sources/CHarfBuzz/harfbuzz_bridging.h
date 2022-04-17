@@ -25,7 +25,55 @@ struct hb_unicode_funcs_t {};
 #include <harfbuzz/hb-gobject.h>
 #include <harfbuzz/hb-aat.h>
 #include <harfbuzz/hb-graphite2.h>
+#if __has_include(<ft2build.h>)
 #include <harfbuzz/hb-ft.h>
+#else
+struct FT_FaceRec_ {};
+typedef struct FT_FaceRec_*  FT_Face;
+
+HB_BEGIN_DECLS
+
+HB_EXTERN hb_face_t *
+hb_ft_face_create (FT_Face           ft_face,
+                   hb_destroy_func_t destroy);
+HB_EXTERN hb_face_t *
+hb_ft_face_create_cached (FT_Face ft_face);
+HB_EXTERN hb_face_t *
+hb_ft_face_create_referenced (FT_Face ft_face);
+HB_EXTERN hb_font_t *
+hb_ft_font_create (FT_Face           ft_face,
+                   hb_destroy_func_t destroy);
+HB_EXTERN hb_font_t *
+hb_ft_font_create_referenced (FT_Face ft_face);
+
+HB_EXTERN FT_Face
+hb_ft_font_get_face (hb_font_t *font);
+
+HB_EXTERN FT_Face
+hb_ft_font_lock_face (hb_font_t *font);
+
+HB_EXTERN void
+hb_ft_font_unlock_face (hb_font_t *font);
+
+HB_EXTERN void
+hb_ft_font_set_load_flags (hb_font_t *font, int load_flags);
+
+HB_EXTERN int
+hb_ft_font_get_load_flags (hb_font_t *font);
+
+/* Call when size or variations settings on underlying FT_Face change. */
+HB_EXTERN void
+hb_ft_font_changed (hb_font_t *font);
+
+/* Makes an hb_font_t use FreeType internally to implement font functions.
+ * Note: this internally creates an FT_Face.  Use it when you create your
+ * hb_face_t using hb_face_create(). */
+HB_EXTERN void
+hb_ft_font_set_funcs (hb_font_t *font);
+
+HB_END_DECLS
+
+#endif
 #ifdef __APPLE__
 #include <harfbuzz/hb-coretext.h>
 #endif
