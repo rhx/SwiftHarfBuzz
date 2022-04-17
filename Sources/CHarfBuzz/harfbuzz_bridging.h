@@ -26,6 +26,9 @@ struct hb_unicode_funcs_t {};
 #if __has_include(<harfbuzz/hb-aat.h>)
 #include <harfbuzz/hb-aat.h>
 #endif
+#if __has_include(<harfbuzz/hb-ot.h>)
+#include <harfbuzz/hb-ot.h>
+#endif
 #if __has_include(<harfbuzz/hb-graphite2.h>)
 #include <harfbuzz/hb-graphite2.h>
 #endif
