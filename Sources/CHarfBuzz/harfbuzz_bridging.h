@@ -23,8 +23,12 @@ struct hb_unicode_funcs_t {};
 #include <sys/types.h>
 #include <harfbuzz/hb-glib.h>
 #include <harfbuzz/hb-gobject.h>
+#if __has_include(<harfbuzz/hb-aat.h>)
 #include <harfbuzz/hb-aat.h>
+#endif
+#if __has_include(<harfbuzz/hb-graphite2.h>)
 #include <harfbuzz/hb-graphite2.h>
+#endif
 #if __has_include(<ft2build.h>)
 #include <harfbuzz/hb-ft.h>
 #else
