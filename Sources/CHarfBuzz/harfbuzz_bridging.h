@@ -21,19 +21,19 @@ struct hb_unicode_funcs_t {};
 
 #define GLIB_DISABLE_DEPRECATION_WARNINGS
 #include <sys/types.h>
-#include <harfbuzz/hb-glib.h>
-#include <harfbuzz/hb-gobject.h>
-#if __has_include(<harfbuzz/hb-aat.h>)
-#include <harfbuzz/hb-aat.h>
+#include <hb-glib.h>
+#include <hb-gobject.h>
+#if __has_include(<hb-aat.h>)
+#include <hb-aat.h>
 #endif
-#if __has_include(<harfbuzz/hb-ot.h>)
-#include <harfbuzz/hb-ot.h>
+#if __has_include(<hb-ot.h>)
+#include <hb-ot.h>
 #endif
-#if __has_include(<harfbuzz/hb-graphite2.h>)
-#include <harfbuzz/hb-graphite2.h>
+#if __has_include(<hb-graphite2.h>)
+#include <hb-graphite2.h>
 #endif
 #if __has_include(<ft2build.h>)
-#include <harfbuzz/hb-ft.h>
+#include <hb-ft.h>
 #else
 struct FT_FaceRec_ {};
 typedef struct FT_FaceRec_*  FT_Face;
@@ -82,5 +82,5 @@ HB_END_DECLS
 
 #endif
 #ifdef __APPLE__
-#include <harfbuzz/hb-coretext.h>
+#include <hb-coretext.h>
 #endif
