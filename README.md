@@ -3,7 +3,6 @@
 A Swift wrapper around harfbuzz-4.x that is largely auto-generated from gobject-introspection.
 For up to date (auto-generated) reference documentation, see https://rhx.github.io/SwiftHarfBuzz/
 
-![macOS 11 build](https://github.com/rhx/SwiftHarfBuzz/workflows/macOS%2012/badge.svg)
 ![Ubuntu 20.04 build](https://github.com/rhx/SwiftHarfBuzz/workflows/Ubuntu%2020.04/badge.svg)
 ![Ubuntu 18.04 build](https://github.com/rhx/SwiftHarfBuzz/workflows/Ubuntu%2018.04/badge.svg)
 
@@ -20,7 +19,7 @@ To build, download Swift from https://swift.org/download/ -- if you are using ma
 on macOS, or on Linux you should get something like:
 
 	$ swift --version
-	Swift version 5.6.0 (swift-5.6.0-RELEASE)
+	Swift version 5.6.1 (swift-5.6.1-RELEASE)
 	Target: x86_64-unknown-linux-gnu
 
 ### GLib 2.56 and HarfBuzz 4.2 or higher
@@ -34,20 +33,20 @@ These Swift wrappers have been tested with glib-2.56, 2.58, 2.60, 2.62, 2.64, 2.
 On Ubuntu 20.04 you can use the HarfBuzz that comes with the distribution.  Just install with the `apt` package manager:
 
 	sudo apt update
-	sudo apt install libharfbuzz-dev gir1.2-harfbuzz-0.0 gobject-introspection libgirepository1.0-dev libxml2-dev
+	sudo apt install libharfbuzz-dev gir1.2-harfbuzz-0.0 gobject-introspection libgirepository1.0-dev libxml2-dev jq
 
 ##### Fedora
 
 On Fedora 29, you can use the gtk that comes with the distribution.  Just install with the `dnf` package manager:
 
-	sudo dnf install harfbuzz-devel glib2-devel gobject-introspection-devel libxml2-devel
+	sudo dnf install harfbuzz-devel glib2-devel gobject-introspection-devel libxml2-devel jq
 
 #### macOS
 
 On macOS, you can install HarfBuzz using HomeBrew (for setup instructions, see http://brew.sh).  Once you have a running HomeBrew installation, you can use it to install a native version of HarfBuzz:
 
 	brew update
-	brew install harfbuzz glib glib-networking gobject-introspection pkg-config
+	brew install harfbuzz glib glib-networking gobject-introspection pkg-config jq
 
 ## Usage
 
@@ -84,49 +83,51 @@ Normally, you don't build this package directly, but you embed it into your own 
 
 ### Xcode
 
-On macOS, you can build the project using Xcode instead.  To do this, you need to create an Xcode project first, then open the project in the Xcode IDE:
+On macOS, you can build the project using Xcode instead.  To do this, you need to open the package in the Xcode IDE:
 
-	./xcodegen.sh
-	open HarfBuzz.xcodeproj
+    cd SwiftHarfBuzz
+	open Package.swift
 
 After that, use the (usual) Build and Test buttons to build/test this package.
 
 ## Documentation
 
-You can find reference documentation inside the [docs](https://rhx.github.io/SwiftGLib/) folder.
-This was generated using the [jazzy](https://github.com/realm/jazzy) tool.
-If you want to generate your own documentation, matching your local installation,
-you can use the `generate-documentation.sh` script in the repository.
-Make sure you have [sourcekitten](https://github.com/jpsim/SourceKitten) and [jazzy](https://github.com/realm/jazzy) installed, e.g. on macOS:
+You can generate documentation using the [DocC plugin](https://apple.github.io/swift-docc-plugin/documentation/swiftdoccplugin/).  To preview documentation matching your local installation, simply run
 
-	brew install sourcekitten
-	sudo gem install jazzy
-	./generate-documentation.sh
+    swift package --disable-sandbox preview-documentation
 
+then navigate to the URL shown for the local preview server.  Make sure you have JavaScript enabled in your browser.
+
+Alternatively, you can create static documentation using [jazzy](https://github.com/realm/jazzy).
+Make sure you have [sourcekitten](https://github.com/jpsim/SourceKitten) and [jazzy](https://github.com/realm/jazzy) installed, e.g. on macOS (x86_64):
+
+	brew install ruby sourcekitten
+	/usr/local/opt/ruby/bin/gem install jazzy
+	./generate-jazzy.sh
 
 ## Troubleshooting
 
 Here are some common errors you might encounter and how to fix them.
 
-### Old Swift toolchain or Xcode
+### Missing `.gir` Files
 
 If you get an error such as
 
-	$ ./build.sh 
-	error: unable to invoke subcommand: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-package (No such file or directory)
+	Girs located at
+	Cannot open '/GLib-2.0.gir': No such file or directory
+
+Make sure that you have the relevant `gobject-introspection` packages installed (as per the Pre-requisites section), including their `.gir` and `.pc` files.
+
+### Old Swift toolchain or Xcode
+
+If, when you run `swift build`, you get a `Segmentation fault (core dumped)` or circular dependency error such as
+
+	warning: circular dependency detected while parsing pangocairo: harfbuzz -> freetype2 -> harfbuzz
 	
-this probably means that your Swift toolchain is too old.  Make sure the latest toolchain is the one that is found when you run the Swift compiler (see above).
+this probably means that your Swift toolchain is too old, particularly on Linux.
+Make sure the latest toolchain is the one that is found when you run the Swift compiler (see above).
 
   If you get an older version, make sure that the right version of the swift compiler is found first in your `PATH`.  On macOS, use xcode-select to select and install the latest version, e.g.:
 
 	sudo xcode-select -s /Applications/Xcode.app
 	xcode-select --install
-
-### Known Issues
-
- * When building, a lot of warnings appear.  This is largely an issue with automatic `RawRepresentable` conformance in the Swift Standard library.  As a workaround, you can turn this off by passing the `-Xswiftc -suppress-warnings` parameter when building.
- 
- * The current build system does not support directory paths with spaces (e.g. the `My Drive` directory used by Google Drive File Stream).
- * BUILD_DIR is not supported in the current build system.
- 
-As a workaround, you can use the old build scripts, e.g. `./build.sh` (instead of `run-gir2swift.sh` and `swift build`) to build a package.
