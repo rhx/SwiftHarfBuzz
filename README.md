@@ -24,7 +24,7 @@ on macOS, or on Linux you should get something like:
 
 ### GLib 2.56 and HarfBuzz 4.2 or higher
 
-These Swift wrappers have been tested with glib-2.56, 2.58, 2.60, 2.62, 2.64, 2.66, 2.68, 2.70, and 2.72, as well as HarfBuzz 4.2 and 7.1.  They should work with higher versions, but YMMV.  Also make sure you have `gobject-introspection` and its `.gir` files installed.
+These Swift wrappers have been tested with glib-2.56, 2.58, 2.60, 2.62, 2.64, 2.66, 2.68, 2.70, and 2.72, as well as HarfBuzz 4.2, 7.1, and 8.0.  They should work with higher versions, but YMMV.  Also make sure you have `gobject-introspection` and its `.gir` files installed.
 
 #### Linux
 
