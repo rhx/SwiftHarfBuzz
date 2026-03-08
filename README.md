@@ -3,8 +3,6 @@
 A Swift wrapper around harfbuzz-4.x that is largely auto-generated from gobject-introspection.
 For up to date (auto-generated) reference documentation, see https://rhx.github.io/SwiftHarfBuzz/
 
-![macOS](https://github.com/rhx/SwiftHarfBuzz/actions/workflows/macOS.yml/badge.svg?branch=development)
-![Linux](https://github.com/rhx/SwiftHarfBuzz/actions/workflows/Linux.yml/badge.svg?branch=development)
 ![macOS](https://github.com/rhx/SwiftHarfBuzz/actions/workflows/macOS.yml/badge.svg?branch=main)
 ![Linux](https://github.com/rhx/SwiftHarfBuzz/actions/workflows/Linux.yml/badge.svg?branch=main)
 
