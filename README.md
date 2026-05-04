@@ -1,6 +1,6 @@
 # SwiftHarfBuzz
 
-A Swift wrapper around harfbuzz-4.x that is largely auto-generated from gobject-introspection.
+A Swift wrapper around harfbuzz that is largely auto-generated from gobject-introspection.
 For up to date (auto-generated) reference documentation, see https://rhx.github.io/SwiftHarfBuzz/
 
 ![macOS](https://github.com/rhx/SwiftHarfBuzz/actions/workflows/macOS.yml/badge.svg?branch=main)
@@ -13,18 +13,18 @@ For up to date (auto-generated) reference documentation, see https://rhx.github.
 To build, download Swift from https://swift.org/download/ -- if you are using macOS, make sure you have the command line tools installed as well).  Test that your compiler works using `swift --version`, which should give you something like
 
 	$ swift --version
-	swift-driver version: 1.127.15 Apple Swift version 6.2.4 (swiftlang-6.2.4.1.4 clang-1700.6.4.2)
+	swift-driver version: 1.148.6 Apple Swift version 6.3.1 (swiftlang-6.3.1.1.2 clang-2100.0.123.102)
 	Target: arm64-apple-macosx26.0
 
 on macOS, or on Linux you should get something like:
 
 	$ swift --version
-	Swift version 6.1 (swift-6.1-RELEASE)
+	Swift version 6.3 (swift-6.3-RELEASE)
 	Target: x86_64-unknown-linux-gnu
 
 ### GLib 2.56 and HarfBuzz 4.2 or higher
 
-These Swift wrappers have been tested with glib-2.56, 2.58, 2.60, 2.62, 2.64, 2.66, 2.68, 2.70, 2.72, 2.74, 2.76, and 2.86, as well as HarfBuzz 4.2, 7.1, 8.0, and later.  They should work with higher versions, but YMMV.  Also make sure you have `gobject-introspection` and its `.gir` files installed.
+These Swift wrappers have been tested with glib-2.56, 2.58, 2.60, 2.62, 2.64, 2.66, 2.68, 2.70, 2.72, 2.74, 2.76, 2.86, and 2.88, as well as HarfBuzz 4.2, 7.1, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, and 14.2.  They should work with higher versions, but YMMV.  Also make sure you have `gobject-introspection` and its `.gir` files installed.
 
 #### Linux
 
